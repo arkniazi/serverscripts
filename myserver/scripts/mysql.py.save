@@ -1,0 +1,25 @@
+class mysql:
+	hostname = 'localhost'
+	username = 'root'
+	password = '4205'
+	database = 'dagon'
+	filename = '/home/capk/FYP/server/simple-http-file-server/Data/com.free_apps.go$
+	import MySQLdb
+
+
+	def main():
+        	conn = MySQLdb.connect(hostname,username,password,database)
+       		cursor = conn.cursor()
+        	with open(filename) as f:
+        	        data = f.readlines()
+        	for d in data:
+        	        d = d.strip()
+        	        print "SELECT PackageName from DexSignatures where ClassOneHash$
+                	cursor.execute("SELECT PackageName from DexSignatures where Cla$
+                	result = cursor.fetchone()
+               		print result 
+	        conn.close()
+	if __name__=='__main__':
+        	main()
+
+

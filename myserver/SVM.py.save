@@ -1,0 +1,75 @@
+from sklearn.svm import LinearSVC
+import csv
+import pickle
+def update_list(list,size,x):
+	while(size!=0):
+		list.append(x)
+		size = size-1
+	return list
+
+def load_data():
+	inputData = []
+	outputData = []
+	with open("/home/capk/FYP/Data/APKBenignPermissionData.txt") as fileBenign:
+		for line in csv.reader(fileBenign,delimiter=','):
+			line = [x for x in line if x]
+			list = [int(i) for i in line]
+			inputData.append(list)
+		size = len(inputData)
+		outputData = update_list(outputData,size,0)
+
+	with open("/home/capk/FYP/Data/APKMalwareDrebinPermissionData.txt") as fileMalware:
+		for line in csv.reader(fileMalware,delimiter=','):
+        	        line = [x for x in line if x]
+			list = [int(i) for i in line]
+			inputData.append(list)
+		nsize = len(inputData)
+		outputData = update_list(outputData,(nsize-size),1)
+	return (inputData,outputData)
+def retrieve_model():
+	file = open("/home/capk/FYP/Data/SVMTrainModel.pickle")
+	mymodel = pickle.load(file)
+	return mymodel
+
+def save_model(mymodel):
+	file = open("/home/capk/FYP/Data/SVMTrainModel.pickle","w")
+	pickle.dump(mymodel,file)
+	file.close
+
+def predict_svm(mymodel,testDataInput,testDataOutput):
+	result = mymodel.predict(testDataInput)
+	correct = 0
+	count = 0
+	for x in range(len(testDataOutput)):
+		count = count+1
+		if testDataOutput[x] == result[x]:
+			correct = correct+1;
+	print count
+	print correct
+	M = correct/count
+	print M
+	Accuracy = M*100
+	print ("Accuracy is ",Accuracy, "%")
+
+def predict_one(mymodel,data):
+	result = mymodel.predict(data)
+def main():
+	with open('home/capk/FYP/server/myserver/Data/permission-data.txt') as f
+		for line in csv.reader(fileBenign,delimiter=','):
+                        line = [x for x in line if x]
+                        list = [int(i) for i in line]
+                        inputData.append(lis
+	data = 
+	#(inputData,outputData) = load_data()
+	#mymodel = LinearSVC(C=70.0,random_state = 60)
+	#testDataInput = inputData[800:len(inputData)]
+	#testDataOutput = outputData[800:len(outputData)]
+	#mymodel.fit(inputData[1:800],outputData[1:800])
+	#save_model(mymodel)
+	mymodel = retrieve_model()
+	#predict_svm(mymodel,testDataInput,testDataOutput)
+	predict_one(mymodel,data)
+
+
+if __name__ == '__main__':
+	main()
